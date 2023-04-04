@@ -168,5 +168,15 @@ class DocumentRegistry:
 
         return set(self._indices.keys())
 
+    def get_indices_raw(self, models=None):
+        """Get all indices as they are store in the registry or the indices for a list of models."""
+        if models is not None:
+            return list(index for index in self._indices for doc in docs if doc.django.model in models)
+        return self._indices
+
+    def get_models(self):
+        """Get all registered models in the registry."""
+        return set(self._models.keys())
+
 
 registry = DocumentRegistry()
